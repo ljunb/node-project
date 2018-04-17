@@ -12,8 +12,15 @@
     "server": "node server/index.js"
   },
   "dependencies": {
+    "element-ui": "^2.3.4",
     "koa": "^2.5.0",
+    "koa-bodyparser": "^4.2.0",
+    "koa-logger": "^3.2.0",
     "koa-router": "^7.4.0",
+    "mysql2": "^1.5.3",
+    "sequelize": "^4.37.6",
+    "stylus": "^0.54.5",
+    "stylus-loader": "^3.0.2",
     "vue": "^2.5.2",
     "vue-router": "^3.0.1"
   },
