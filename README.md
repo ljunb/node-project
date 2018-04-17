@@ -1,6 +1,6 @@
 # node-project
 
-> 一个基于 Vue2 + Koa2 + MySQL 的练习 Demo 。
+> 一个基于 Vue2 + ElementUI + Koa2 + MySQL 的练习 Demo 。
 
 ## 运行
 

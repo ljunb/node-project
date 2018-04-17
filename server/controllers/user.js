@@ -1,8 +1,4 @@
 const handler_login = (ctx, next) => {
-  ctx.body = '<h1>login</h1>'
-}
-
-const handler_register = async (ctx, next) => {
   const { body } = ctx.request
   let result = {
     code: 0,
@@ -26,10 +22,14 @@ const handler_register = async (ctx, next) => {
   ctx.body = result
 }
 
+const handler_register = async (ctx, next) => {
+
+}
+
 module.exports = [
   {
-    path: '/',
-    method: 'GET',
+    path: '/api/login',
+    method: 'POST',
     handler: handler_login
   },
   {

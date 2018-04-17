@@ -15,12 +15,9 @@
           placeholder="密码"
           type="password">
         </el-input>
-        <el-button type="primary">登录</el-button>
-        <el-button type="primary" @click="register">注册</el-button>
+        <el-button type="primary" @click="login">登录</el-button>
+        <el-button type="primary" >注册</el-button>
       </el-row>
-      <div>
-        {{ responseData }}
-      </div>
     </el-col>
   </el-row>
 </template>
@@ -31,25 +28,33 @@ export default {
     return {
       account: '',
       password: '',
-      responseData: '',
     };
   },
   methods: {
-    register() {
-      const options = {
-        name: this.account,
-        password: this.password,
-      };
-      this.$http.post('/api/register', options)
-        .then((res) => {
-          const { data } = res;
-          if (data.code === 1) {
-            this.$router.push('/todoList');
-          } else {
-            this.responseData = JSON.stringify(res.data);
-          }
-        })
-        .catch(() => {});
+    async login() {
+      if (!this.account) {
+        this.$message.error('用户名不能为空！');
+        return;
+      }
+      if (!this.password) {
+        this.$message.error('密码不能为空！');
+        return;
+      }
+
+      try {
+        const params = {
+          name: this.account,
+          password: this.password,
+        };
+        const { data } = await this.$http.post('/api/login', params);
+        if (data.code === 1) {
+          this.$router.push('/todoList');
+        } else {
+          this.$message.error(data.message);
+        }
+      } catch (error) {
+        this.$message.error(error);
+      }
     },
   },
 };
