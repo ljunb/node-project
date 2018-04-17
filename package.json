@@ -12,6 +12,7 @@
     "server": "node server/index.js"
   },
   "dependencies": {
+    "axios": "^0.18.0",
     "element-ui": "^2.3.4",
     "koa": "^2.5.0",
     "koa-bodyparser": "^4.2.0",
