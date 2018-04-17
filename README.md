@@ -1,21 +1,14 @@
 # node-project
 
-> A Vue.js project
+> 一个基于 Vue2 + Koa2 + MySQL 的练习 Demo 。
 
-## Build Setup
+## 运行
 
-``` bash
-# install dependencies
-npm install
-
-# serve with hot reload at localhost:8080
+```sh
+// 进入项目目录，并安装依赖
+cd node-project && npm install
+// 开启 node 服务器
+node server
+// 运行 Vue
 npm run dev
-
-# build for production with minification
-npm run build
-
-# build for production and view the bundle analyzer report
-npm run build --report
 ```
-
-For a detailed explanation on how things work, check out the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).

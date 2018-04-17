@@ -10,6 +10,7 @@ module.exports = {
     // Paths
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
+    // 让 webpack 将 target 的请求，转发到本地，变成同域请求
     proxyTable: {
       '/api': {
         target: 'http://localhost:3000',
