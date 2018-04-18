@@ -1,3 +1,5 @@
+const jwt = require('jsonwebtoken')
+const bcrypt = require('bcryptjs')
 const UserService = require('../services/user')
 
 const handler_login = async (ctx, next) => {
@@ -5,6 +7,7 @@ const handler_login = async (ctx, next) => {
   let result = {
     code: 0,
     message: '登录失败',
+    token: null
   }
 
   if (body.name === '') {
@@ -17,10 +20,18 @@ const handler_login = async (ctx, next) => {
     if (!userInfo) {
       result.message = '用户不存在！'
     } else {
-      if (userInfo.password === body.password) {
+      console.log(bcrypt.hashSync(body.password))
+      if (bcrypt.compareSync(body.password, userInfo.password)) {
+        const userToken = {
+          name: userInfo.name,
+          id: userInfo.id
+        }
+        const secret = 'cj-node-project'
+        const token = jwt.sign(userToken, secret)
         result = {
+          token,
           code: 1,
-          message: '登录成功！'
+          message: '登录成功！',
         }
       } else {
         result.message = '用户密码错误！'
@@ -46,11 +57,19 @@ const handler_register = async (ctx, next) => {
     try {
       const userInfo = {
         name: body.name,
-        password: body.password
+        password: bcrypt.hashSync(body.password, bcrypt.genSaltSync())
       }
       const isCreateSuccess = await UserService.createUser(userInfo)
       if (isCreateSuccess) {
+        const newUser = await UserService.findUserByName(body.name)
+        const userToken = {
+          name: newUser.name,
+          id: newUser.id
+        }
+        const token = jwt.sign(userToken, 'cj-node-project')
+
         result = {
+          token,
           code: 1,
           message: '注册成功'
         }

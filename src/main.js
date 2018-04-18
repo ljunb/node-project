@@ -10,6 +10,23 @@ Vue.prototype.$http = Axios;
 Vue.config.productionTip = false;
 Vue.use(ElementUI);
 
+router.beforeEach((to, form, next) => {
+  const token = sessionStorage.getItem('node-project');
+  if (to.path === '/') {
+    if (token) {
+      next('/todoList');
+    }
+    next();
+  } else {
+    if (token) {
+      Vue.prototype.$http.defaults.headers.common.Authorization = `Bearer ${token}`;
+      next();
+    } else {
+      next('/');
+    }
+  }
+});
+
 /* eslint-disable no-new */
 new Vue({
   el: '#app',

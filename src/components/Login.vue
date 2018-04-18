@@ -48,12 +48,15 @@ export default {
         };
         const { data } = await this.$http.post('/api/login', params);
         if (data.code === 1) {
+          sessionStorage.setItem('node-project', data.token);
           this.$router.push('/todoList');
         } else {
           this.$message.error(data.message);
+          sessionStorage.setItem('node-project', null);
         }
       } catch (error) {
         this.$message.error(error);
+        sessionStorage.setItem('node-project', null);
       }
     },
     async register() {
