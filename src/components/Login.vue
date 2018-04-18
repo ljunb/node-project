@@ -76,6 +76,7 @@ export default {
         };
         const { data } = await this.$http.post('/api/register', params);
         if (data.code === 1) {
+          sessionStorage.setItem('node-project', data.token);
           this.$message({
             type: 'success',
             message: '注册成功！',
@@ -101,4 +102,5 @@ export default {
   .el-button
     width 100%
     margin-top 12px
+    margin-left 0px
 </style>
