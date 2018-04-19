@@ -48,15 +48,15 @@ export default {
         };
         const { data } = await this.$http.post('/api/login', params);
         if (data.code === 1) {
-          sessionStorage.setItem('node-project', data.token);
+          sessionStorage.setItem(this.GlobalConstants.tokenStorageKey, data.token);
           this.$router.push('/todoList');
         } else {
           this.$message.error(data.message);
-          sessionStorage.setItem('node-project', null);
+          sessionStorage.setItem(this.GlobalConstants.tokenStorageKey, null);
         }
       } catch (error) {
         this.$message.error(error);
-        sessionStorage.setItem('node-project', null);
+        sessionStorage.setItem(this.GlobalConstants.tokenStorageKey, null);
       }
     },
     async register() {
@@ -76,7 +76,7 @@ export default {
         };
         const { data } = await this.$http.post('/api/register', params);
         if (data.code === 1) {
-          sessionStorage.setItem('node-project', data.token);
+          sessionStorage.setItem(this.GlobalConstants.tokenStorageKey, data.token);
           this.$message({
             type: 'success',
             message: '注册成功！',

@@ -3,6 +3,7 @@ const bodyparser = require('koa-bodyparser')
 const logger = require('koa-logger')
 const jwt = require('koa-jwt')
 const controller = require('./middlewares/controller')
+const config = require('./config')
 
 const app = new Koa()
 
@@ -25,7 +26,7 @@ app.use(async (ctx, next) => {
 
 app.use(bodyparser())
 app.use(logger())
-app.use(jwt({secret: 'cj-node-project'}))
+app.use(jwt({secret: config.jwt_secret}))
 app.use(controller())
 
 app.on('error', (err, ctx) => console.log(`Koa is run with error: ${err}`))

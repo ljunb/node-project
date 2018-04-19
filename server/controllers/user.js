@@ -1,6 +1,7 @@
 const jwt = require('jsonwebtoken')
 const bcrypt = require('bcryptjs')
 const UserService = require('../services/user')
+const config = require('../config')
 
 const handler_login = async (ctx, next) => {
   const { body } = ctx.request
@@ -26,8 +27,8 @@ const handler_login = async (ctx, next) => {
           name: userInfo.name,
           id: userInfo.id
         }
-        const secret = 'cj-node-project'
-        const token = jwt.sign(userToken, secret)
+        // 签发 token
+        const token = jwt.sign(userToken, config.jwt_secret)
         result = {
           token,
           code: 1,
@@ -66,7 +67,8 @@ const handler_register = async (ctx, next) => {
           name: newUser.name,
           id: newUser.id
         }
-        const token = jwt.sign(userToken, 'cj-node-project')
+        // 签发 token
+        const token = jwt.sign(userToken, config.jwt_secret)
 
         result = {
           token,
