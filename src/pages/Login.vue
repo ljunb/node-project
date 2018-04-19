@@ -49,7 +49,7 @@ export default {
         const { data } = await this.$http.post('/api/login', params);
         if (data.code === 1) {
           sessionStorage.setItem(this.GlobalConstants.tokenStorageKey, data.token);
-          this.$router.push('/todoList');
+          this.$router.push('/home');
         } else {
           this.$message.error(data.message);
           sessionStorage.setItem(this.GlobalConstants.tokenStorageKey, null);
