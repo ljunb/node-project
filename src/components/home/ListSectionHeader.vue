@@ -1,13 +1,14 @@
 <template>
   <div class="header">
     <div class="diamonds"></div>
-    <div class="title">阅读|Read - 音乐|Music - 视频|Video - 品书|Book</div>
+    <div class="title">{{ tagList }}</div>
   </div>
 </template>
 
 <script>
 export default {
   name: 'list-section-header',
+  props: ['tagList'],
 };
 </script>
 

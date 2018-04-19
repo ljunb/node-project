@@ -1,8 +1,12 @@
 <template>
   <div class="home-page">
     <image-gallery></image-gallery>
-    <list-section-header></list-section-header>
-    <article-list></article-list>
+    <list-section-header
+      tagList="阅读 | Read  -  音乐 | Music  -  视频 | Video  -  品书 | Book"
+    />
+    <article-list :articleList="homeInfo"></article-list>
+    <list-section-header tagList="图说 | Picture" />
+    <picture-list></picture-list>
   </div>
 </template>
 
@@ -12,6 +16,28 @@ import ListSectionHeader from '@/components/home/ListSectionHeader';
 import ArticleList from '@/components/home/ArticleList';
 
 export default {
+  data() {
+    return {
+      homeInfo: [],
+    };
+  },
+  created() {
+    this.getHomeInfo();
+  },
+  methods: {
+    async getHomeInfo() {
+      try {
+        const { data } = await this.$http.get('/api/no-auth/homeInfo');
+        if (data.code === 1) {
+          this.homeInfo = data.data || [];
+        } else {
+          // this.$message.error(responseData.message);
+        }
+      } catch (error) {
+        this.$message.error(error);
+      }
+    },
+  },
   components: {
     ImageGallery,
     ListSectionHeader,

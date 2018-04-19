@@ -26,7 +26,7 @@ app.use(async (ctx, next) => {
 
 app.use(bodyparser())
 app.use(logger())
-app.use(jwt({secret: config.jwt_secret}))
+app.use(jwt({secret: config.jwt_secret}).unless({path: [/^\/api\/no-auth/]}))
 app.use(controller())
 
 app.on('error', (err, ctx) => console.log(`Koa is run with error: ${err}`))
