@@ -6,7 +6,6 @@
     />
     <article-list :articleList="homeInfo"></article-list>
     <list-section-header tagList="图说 | Picture" />
-    <picture-list></picture-list>
   </div>
 </template>
 

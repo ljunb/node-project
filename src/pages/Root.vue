@@ -17,6 +17,9 @@
             <el-tab-pane label="赏音乐">赏音乐</el-tab-pane>
             <el-tab-pane label="观影录">观影录</el-tab-pane>
             <el-tab-pane label="去旅行">去旅行</el-tab-pane>
+            <el-tab-pane label="图片文字识别">
+              <OCRUpload></OCRUpload>
+            </el-tab-pane>
           </el-tabs>
         </el-col>
       </el-row>
@@ -26,10 +29,12 @@
 
 <script>
 import HomePage from '@/pages/Home';
+import OCRUpload from '@/pages/OCRUpload';
 
 export default {
   components: {
     HomePage,
+    OCRUpload,
   },
 };
 </script>
