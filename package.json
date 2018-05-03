@@ -22,11 +22,14 @@
     "koa-logger": "^3.2.0",
     "koa-router": "^7.4.0",
     "mysql2": "^1.5.3",
+    "raw-body": "^2.3.2",
     "sequelize": "^4.37.6",
+    "sha1": "^1.1.1",
     "stylus": "^0.54.5",
     "stylus-loader": "^3.0.2",
     "vue": "^2.5.2",
-    "vue-router": "^3.0.1"
+    "vue-router": "^3.0.1",
+    "xml2js": "^0.4.19"
   },
   "devDependencies": {
     "autoprefixer": "^7.1.2",
