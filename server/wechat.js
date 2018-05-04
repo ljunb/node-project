@@ -5,15 +5,8 @@ const Koa = require('koa')
       getRawBody = require('raw-body')
       getSignature = require('./wechat/utils/signature')
       parseXML = require('./wechat/utils/parseXML')
-
-const config = {
-  wechat: {
-    appID: 'wxaea3d9250f2fa460',
-    appSecret: '45d8281ff37fa611a3259b1573f426db',
-    token: 'nodeprojectwechat',
-  },
-  port: 9003
-}
+      config = require('./wechat/config')
+      replyXML = require('./wechat/utils/replyXML')
 
 const app = new Koa()
 
@@ -22,7 +15,7 @@ app.use(async (ctx, next) => {
   const token = config.wechat.token
 
   if (ctx.method === 'GET') {
-    if (signature === getSelection(timestamp, nonce, token)) {
+    if (signature === getSignature(timestamp, nonce, token)) {
       return ctx.body = echostr
     }
     ctx.status = 401
@@ -43,16 +36,7 @@ app.use(async (ctx, next) => {
     console.log(formatted)
     
     ctx.type = 'application/xml'
-    const replyXML = `
-    <xml>
-      <ToUserName><![CDATA[${formatted.FromUserName}]]></ToUserName> 
-      <FromUserName><![CDATA[${formatted.ToUserName}]]></FromUserName> 
-      <CreateTime>${new Date().getTime()}</CreateTime> 
-      <MsgType><![CDATA[text]]></MsgType> 
-      <Content><![CDATA[Hello World！]]></Content> 
-    </xml>
-    `
-    return ctx.body = replyXML
+    ctx.body = replyXML(formatted)
   }
 })
 
