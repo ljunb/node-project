@@ -5,32 +5,36 @@ const eventHandler = message => {
     if (message.EventKey) {
       console.log('扫码进入')
     }
-    return '<Content><![CDATA[终于等到你！]]></Content>'
+    const contentXML = '<Content><![CDATA[终于等到你！]]></Content>'
+    return createXML(message, 'text', contentXML)
   } else if (Event === 'unsubscribe') {
     console.log('取关')
   }
 }
 
 const textHandler = message => {
-  return '<Content><![CDATA[Hello world!!!!]]></Content>'
+  const contentXML = '<Content><![CDATA[Hello world!!!!]]></Content>'
+  return createXML(message, 'text', contentXML)
 }
 
 const imageHandler = message => {
   const { MediaId } = message
-  return `
+  const contentXML = `
     <Image>
       <MediaId><![CDATA[${MediaId}]]></MediaId>
     </Image>
   `
+  return createXML(message, MsgType, contentXML)
 }
 
 const voiceHandler = message => {
-  const { MediaId } = message
-  return `
+  const { MediaId, MsgType } = message
+  const contentXML = `
     <Voice>
       <MediaId><![CDATA[${MediaId}]]></MediaId>
     </Voice>
   `
+  return createXML(message, MsgType, contentXML)
 }
 
 const handlerMap = {
@@ -40,21 +44,24 @@ const handlerMap = {
   'voice': voiceHandler,
 }
 
-const replyXML = message => {
-  const { ToUserName, FromUserName, MsgType = 'text' } = message
-  const handler = handlerMap[MsgType] || handlerMap['text']
-  const contentXML = handler(message)
+const createXML = (message, msgType, contentXML) => {
+  const { ToUserName, FromUserName } = message
 
-  const xmlResult = `
+  return `
   <xml>
     <ToUserName><![CDATA[${FromUserName}]]></ToUserName> 
     <FromUserName><![CDATA[${ToUserName}]]></FromUserName> 
     <CreateTime>${new Date().getTime()}</CreateTime> 
-    <MsgType><![CDATA[text]]></MsgType> 
+    <MsgType><![CDATA[${msgType}]]></MsgType> 
     ${contentXML}
   </xml>
   `
-  return xmlResult
+}
+
+const replyXML = message => {
+  const { ToUserName, FromUserName, MsgType = 'text' } = message
+  const handler = handlerMap[MsgType] || handlerMap['text']
+  return handler(message)
 }
 
 module.exports = replyXML
