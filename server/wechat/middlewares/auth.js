@@ -1,3 +1,6 @@
+/**
+ * 微信认证中间件
+ */
 const config = require('../config')
       getSignature = require('../utils/signature')
 
@@ -11,7 +14,7 @@ const auth = () => async (ctx, next) => {
   } else {
     if (ctx.method === 'GET') {
       // 用于微信公众号平台的验证
-      return ctx.body = echostr
+      return ctx.body = `${echostr}`
     }
     // POST 时即为接收到消息
     await next()
