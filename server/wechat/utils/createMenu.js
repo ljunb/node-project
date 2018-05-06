@@ -1,22 +1,19 @@
 /**
- * 创建菜单中间件
+ * 创建菜单工具类
  */
-const config = require('../config')
+const axios = require('axios')
+      config = require('../config')
       getAccessToken = require('../utils/accessToken')
 
-const menu = () => async (ctx, next) => {
+module.exports = async () => {
   try {
     const result = await getAccessToken()
     if (result) {
       const url = `${config.api.menu}?access_token=${result.accessToken}`
-      const response = await axios.post(url, menuOption)
-      console.log(`[Middleware] create menu response: ${JSON.stringify(response)}`)
+      const response = await axios.post(url, config.menu)
+      console.log(`[Middleware] create menu response: ${response}`)
     }
   } catch (error) {
     console.log(`[Middleware] create menu error: ${error}`)
   }
-  
-  await next()
 }
-
-module.exports = menu

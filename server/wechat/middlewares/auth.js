@@ -4,7 +4,7 @@
 const config = require('../config')
       getSignature = require('../utils/signature')
 
-const auth = () => async (ctx, next) => {
+module.exports = () => async (ctx, next) => {
   const { signature, nonce, timestamp, echostr } = ctx.query
   const token = config.wechat.token 
 
@@ -20,5 +20,3 @@ const auth = () => async (ctx, next) => {
     await next()
   }
 }
-
-module.exports = auth

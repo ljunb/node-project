@@ -6,7 +6,7 @@ const getRawBody = require('raw-body')
       parseXML = require('../utils/parseXML')
       replyXML = require('../utils/replyXML')
 
-const reply = () => async (ctx, next) => {
+module.exports = () => async (ctx, next) => {
   const receiveXML = await getRawBody(ctx.req, {
     length: ctx.request.length,
     limit: '1mb',
@@ -19,6 +19,5 @@ const reply = () => async (ctx, next) => {
   
   ctx.type = 'application/xml'
   ctx.body = replyXML(messageObj)
+  // await ctx.render('xmltpl', {...messageObj, CreateTime: Date.now()})
 }
-
-module.exports = reply

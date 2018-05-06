@@ -7,7 +7,7 @@ const axios = require('axios')
       
 const accessTokenPath = `${__dirname}/../static/access_token.txt`
 
-const getAccessToken = async () => {
+module.exports = async () => {
   try {
     // 看看本地有没token
     const latestToken = await fs.readFile(accessTokenPath, 'utf-8')
@@ -38,5 +38,3 @@ const getAccessToken = async () => {
     return null
   }
 }
-
-module.exports = getAccessToken
