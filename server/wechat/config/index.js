@@ -1,7 +1,7 @@
 // 自己的订阅号
 const personal = {
-  appID: 'wxaea3d9250f2fa460',
-  appSecret: '45d8281ff37fa611a3259b1573f426db',
+  appID: 'appID',
+  appSecret: 'appSecret',
   token: 'nodeprojectwechat',
 }
 
